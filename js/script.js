@@ -1,9 +1,9 @@
 let names = []
 function Name(){
-resposta = {name: prompt("Qual o seu nome de usuário?")}
+nome = {name: prompt("Qual o seu nome de usuário?")}
 
 
-const joining = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', resposta)
+const joining = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', nome)
 joining.then(sucessProcessName);
 joining.catch(errorProcessName);}
 
@@ -25,5 +25,10 @@ function get() {
 function processarResposta(resposta) {
 	console.log(resposta.data);
 }
+function status() {
+    const statusName = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', nome)
+}
 setInterval (get, 5000)
+setInterval (status, 5000)
+
 
