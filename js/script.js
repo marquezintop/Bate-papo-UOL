@@ -128,10 +128,12 @@ function loadingMessages() {
             template = `<li class="chat-box-private" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
             </li>`
         } else {
-            
+
         }
     messages.innerHTML = messages.innerHTML + template
     }
+    
+    messages.lastChild.scrollIntoView()
 }
 
 
