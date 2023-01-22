@@ -62,12 +62,13 @@ function leavingMessageError() {
 
 
 validatingUsername()
-getMessagesAtServer()
-setInterval(getMessagesAtServer, 3000)
+
 
 function sucessProcessName() {
     console.log('Você entrou, parabéns');
     joiningMessage();
+    getMessagesAtServer()
+    setInterval(getMessagesAtServer, 3000)
 }
 
 function errorProcessName() {
@@ -109,6 +110,7 @@ function sendMessageSucess() {
 
 function sendMessageError() {
     console.log('Mensagem não enviada')
+    window.location.reload()
 }
 
 function loadingMessages() {
@@ -122,7 +124,7 @@ function loadingMessages() {
         } else if (messageList[i].type === 'message') {
             template = `<li class="chat-box-public" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
             </li>`
-        } else {
+        } else if (messageList[i].to === username){
             template = `<li class="chat-box-private" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
             </li>`
         }
