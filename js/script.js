@@ -74,10 +74,10 @@ function sucessProcessName() {
     console.log('Você entrou, parabéns');
     document.querySelector('.login-screen').classList.add('hidden')
     document.querySelector('.container').classList.remove('hidden')
-    userStatus()
     getMessagesAtServer();
     joiningMessage();
     setInterval(getMessagesAtServer, 3000);
+    setInterval (userStatus, 5000)
 }
 
 function errorProcessName() {
@@ -96,14 +96,8 @@ function userStatus() {
     userStatusAPI.catch(userIsOff);
 }
 
-function userStatusRepeat() {
-    const userStatusAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', usernameAPI);
-    userStatusAPI.catch(userIsOff);
-}
-
 function userIsOn() {
     console.log('Você esta online');
-    setInterval (userStatusRepeat, 5000)
 }
 
 function userIsOff() {
