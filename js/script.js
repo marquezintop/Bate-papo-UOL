@@ -144,6 +144,8 @@ function loadingMessages() {
             ${messageList[i].text}
             </div>
             </li>`
+        } else if (messageList[i].type === private_message) {
+            template = ''
         }
     messages.innerHTML = messages.innerHTML + template
     }
