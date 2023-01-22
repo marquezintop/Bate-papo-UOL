@@ -3,6 +3,36 @@ let usernameAPI;
 let messageList = []
 let typedMessage
 
+function validatingUsername(){
+username = prompt("Qual o seu nome de usuário?");
+usernameAPI = {name: username};
+console.log(usernameAPI);
+const validatingUsernameAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', usernameAPI);
+validatingUsernameAPI.then(sucessProcessName);
+validatingUsernameAPI.catch(errorProcessName);
+}
+
+function sucessProcessName() {
+    console.log('Você entrou, parabéns');
+    joiningMessage();
+    getMessagesAtServer()
+    setInterval(getMessagesAtServer, 3000)
+}
+
+function errorProcessName() {
+    console.log('ERRO');
+    alert("Nome de usuário já utilizado, tente outro nome");
+    validatingUsername();
+}
+
+function userStatus() {
+    const userStatusAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', usernameAPI);
+    userStatusAPI.then(userIsOn);
+    userStatusAPI.catch(userIsOff);
+    setInterval (userStatus, 5000);
+}
+
+
 function getMessagesAtServer () {
     const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages')
     promise.then(getMessagesSucess)
@@ -17,15 +47,6 @@ function getMessagesSucess (res) {
 
 function getMessagesError() {
     console.log('Deu ruim no getMessages')
-}
-
-function validatingUsername(){
-username = prompt("Qual o seu nome de usuário?");
-usernameAPI = {name: username};
-console.log(usernameAPI);
-const validatingUsernameAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/participants', usernameAPI);
-validatingUsernameAPI.then(sucessProcessName);
-validatingUsernameAPI.catch(errorProcessName);
 }
 
 function joiningMessage() {
@@ -61,29 +82,10 @@ function leavingMessageError() {
 }
 
 
+
 validatingUsername()
+userStatus()
 
-
-function sucessProcessName() {
-    console.log('Você entrou, parabéns');
-    joiningMessage();
-    getMessagesAtServer()
-    setInterval(getMessagesAtServer, 3000)
-}
-
-function errorProcessName() {
-    console.log('ERRO');
-    alert("Nome de usuário já utilizado, tente outro nome");
-    validatingUsername();
-}
-
-function userStatus() {
-    const userStatusAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/status', usernameAPI);
-    userStatusAPI.then(userIsOn);
-    userStatusAPI.catch(userIsOff);
-}
-
-setInterval (userStatus, 5000)
 
 function userIsOn() {
     console.log('Você esta online');
@@ -109,8 +111,8 @@ function sendMessageSucess() {
 }
 
 function sendMessageError() {
-    console.log('Mensagem não enviada')
-    window.location.reload()
+    console.log('Mensagem não enviada');
+    window.location.reload();
 }
 
 function loadingMessages() {
@@ -119,21 +121,36 @@ function loadingMessages() {
     let template
     for(let i=0; i<messageList.length; i++) {
         if (messageList[i].type === 'status') {
-            template = `<li class="chat-box-joining" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> ${messageList[i].text}</div>
+            template = `<li class="chat-box-joining" data-test="message">
+            <div>
+            <span class="time">${messageList[i].time} </span>
+            <span class="user">${messageList[i].from}</span> 
+            ${messageList[i].text}
+            </div>
         </li>`  
         } else if (messageList[i].type === 'message') {
-            template = `<li class="chat-box-public" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
+            template = `<li class="chat-box-public" data-test="message">
+            <div>
+            <span class="time">${messageList[i].time} </span>
+            <span class="user">${messageList[i].from}</span> 
+            para <span class="user">${messageList[i].to}</span> 
+            ${messageList[i].text}
+            </div>
             </li>`
         } else if (messageList[i].to === username || messageList[i].from === username){
-            template = `<li class="chat-box-private" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
+            template = `<li class="chat-box-private" data-test="message">
+            <div>
+            <span class="time">${messageList[i].time} </span>
+            <span class="user">${messageList[i].from}</span> 
+            para <span class="user">${messageList[i].to}</span> 
+            ${messageList[i].text}
+            </div>
             </li>`
-        } else {
-
         }
     messages.innerHTML = messages.innerHTML + template
-    }
+}
     
-    messages.lastChild.scrollIntoView()
+    messages.lastChild.scrollIntoView();
 }
 
 
