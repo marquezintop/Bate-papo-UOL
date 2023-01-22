@@ -1,3 +1,46 @@
+.login-screen {
+    background-color: #FFFFFF;
+    width: 375px;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Encode Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+.login-screen img {
+    width: 130px;
+    height: 92px;
+    margin-left: 122px;
+    margin-top: 72px;
+}
+.login-screen input {
+    margin-left: 57px;
+    margin-top: 94px;
+    font-size: 18px;
+    width: 261px;
+    padding: 7px 0;
+    background-color: #FFFFFF;
+}
+.login-screen input::placeholder {
+    font-weight: 400px;
+    font-style: italic;
+    font-size: 18px;
+    text-align: center;
+}
+.login-screen button {
+    margin-top: 15px;
+    margin-left: 133px;
+    background-color: #E7E7E7;
+    color: #696969;
+    font-size: 18px;
+    font-weight: 400;
+    width: 109px;
+    height: 45px;
+}
+.login-screen button:hover {
+    filter:brightness(120%)
+}
 .container {
     background-color: #E5E5E5;
     width: 375px;
@@ -5,7 +48,10 @@
     display: flex;
     flex-direction: column;
     font-family: 'Encode Sans', sans-serif;
-font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
+}
+.hidden {
+    display: none;
 }
 header {
     width: 375px;
@@ -33,6 +79,10 @@ ul {
     font-size: 14px;
     font-weight: 400;
     color: #000000;
+}
+li {
+    display: flex;
+    flex-wrap: wrap;
 }
 .chat-box-joining {
     background-color: #DCDCDC;
@@ -78,5 +128,7 @@ footer input::placeholder {
 }
 footer ion-icon {
     font-size: 30px;
-    padding-right: 18px;
+}
+footer button {
+    margin-right: 18px;
 }
