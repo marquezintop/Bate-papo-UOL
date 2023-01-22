@@ -1,7 +1,6 @@
 .container {
     background-color: #E5E5E5;
     width: 375px;
-    height: 100vw;
     margin: 0px auto;
     display: flex;
     flex-direction: column;
@@ -29,6 +28,7 @@ header ion-icon {
 }
 ul {
     margin-top: 106px;
+    margin-bottom: 80px;
     width: inherit;
     font-size: 14px;
     font-weight: 400;
