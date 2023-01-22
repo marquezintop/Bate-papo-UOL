@@ -117,13 +117,13 @@ function loadingMessages() {
     let template
     for(let i=0; i<messageList.length; i++) {
         if (messageList[i].type === 'status') {
-            template = `<li class="chat-box-joining"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> ${messageList[i].text}</div>
+            template = `<li class="chat-box-joining" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> ${messageList[i].text}</div>
         </li>`  
         } else if (messageList[i].type === 'message') {
-            template = `<li class="chat-box-public"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
+            template = `<li class="chat-box-public" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
             </li>`
         } else {
-            template = `<li class="chat-box-private"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
+            template = `<li class="chat-box-private" data-test="message"><div><span class="time">${messageList[i].time} </span><span class="user">${messageList[i].from}</span> para <span class="user">${messageList[i].to}</span> ${messageList[i].text}</div>
             </li>`
         }
     messages.innerHTML = messages.innerHTML + template
