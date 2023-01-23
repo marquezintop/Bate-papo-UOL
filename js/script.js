@@ -2,9 +2,8 @@ let username = null;
 let usernameAPI;
 let messageList = [];
 let typedMessage;
-let typedMessageEnter  = document.querySelector('.message-written')
-let typedUsername = null;
-let typedUsernameEnter = document.querySelector('.login-name');
+const typedMessageEnter  = document.querySelector('.message-written');
+const typedUsernameEnter = document.querySelector('.login-name');
 
 function getMessagesAtServer () {
     const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/messages');
@@ -36,54 +35,21 @@ typedUsernameEnter.addEventListener("keypress", function(keyPressed) {
       keyPressed.preventDefault();
       document.querySelector(".enter-login").click();
     }
-  })
-
-function joiningMessage() {
-    const messageJoining = {from: username, to: 'Todos', text: "entra na sala...", type: 'status'};
-    const messageJoiningAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', messageJoining);
-    messageJoiningAPI.then(joiningMessageSucess);
-    messageJoiningAPI.catch(joiningMessageError);
-}
-
-function joiningMessageSucess() {
-    console.log('Mensagem de joining foi um sucesso');
-    getMessagesAtServer();
-}
-
-function joiningMessageError() {
-    console.log('Deu ruim no joining');
-}
-
-function leavingMessage() {
-    const messageLeaving = {from: username, to: 'Todos', text: "sai na sala...", type: 'status'};
-    const messageLeavingAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', messageLeaving);
-    messageLeavingAPI.then(leavingMessageSucess);
-    messageLeavingAPI.catch(leavingMessageError);
-}
-
-function leavingMessageSucess() {
-    console.log('Mensagem de leaving foi um sucesso');
-    getMessagesAtServer();
-}
-
-function leavingMessageError() {
-    console.log('Deu ruim no leaving');
-}
+  });
 
 function sucessProcessName() {
     console.log('Você entrou, parabéns');
-    document.querySelector('.login-screen').classList.add('hidden')
-    document.querySelector('.container').classList.remove('hidden')
+    document.querySelector('.login-screen').classList.add('hidden');
+    document.querySelector('.container').classList.remove('hidden');
     getMessagesAtServer();
-    joiningMessage();
     setInterval(getMessagesAtServer, 3000);
-    setInterval (userStatus, 5000)
+    setInterval (userStatus, 5000);
 }
 
 function errorProcessName() {
     console.log('ERRO');
     if (username === null || username === undefined || username === '') {
-        alert("Nome vazio, por favor escreva o seu nome abaixo")
+        alert("Nome vazio, por favor escreva o seu nome abaixo");
     } else {
     alert("Nome de usuário já utilizado, tente outro nome");
     document.querySelector('input').value = '';
@@ -105,7 +71,6 @@ function userIsOff() {
     leavingMessage();
 }
 
-
 function sendMessage() {
     typedMessage = document.querySelector('.message-written').value;
     const messageWritten = {from: username, to: 'Todos', text: typedMessage, type: 'message'};
@@ -120,7 +85,7 @@ typedMessageEnter.addEventListener("keypress", function(keyPressed) {
       keyPressed.preventDefault();
       document.getElementById("btn").click();
     }
-  })
+  });
 
 function sendMessageSucess() {
     console.log('Mensagem enviada');
@@ -167,7 +132,7 @@ function loadingMessages() {
             template = '';
         }
     messages.innerHTML = messages.innerHTML + template;
-    }
+}
     
     messages.lastChild.scrollIntoView();
 }
