@@ -22,10 +22,10 @@
         <input class="login-name" data-test="input-name" type="text" placeholder="Digite seu nome">
         <button class="enter-login" data-test="send-name" onclick="validatingUsername()">Entrar</button>
     </div>
-    <div class="container">
+    <div class="container hidden">
         <header>
             <img src="assets/imagens/image.png" alt/>
-            <ion-icon name="people"></ion-icon>
+            <button data-test="open-participants" onclick="toggleAside()"><ion-icon name="people"></ion-icon></button>
         </header>
         <ul>
 
@@ -37,9 +37,31 @@
             </button>
         </footer>
     </div>
-    <!-- <aside>
-
-    </aside> -->
+    <aside class="sidebar hidden">
+        <button class="opaque" onclick="toggleAside()"></button>
+        <div class="participants-list">
+            <div class="users-text">Escolha um contato para enviar mensagem:</div>
+            <ul>
+                <li data-test="all">
+                    <ion-icon name="people"></ion-icon>
+                    <button onclick='mark(this)'>Todos</button>
+                    <ion-icon class="marked" name="checkmark" data-test="check"></ion-icon>
+                </li>
+            </ul>
+            <div class="visibility-text">Escolha a visibilidade</div>
+            <ul>
+                <li data-test="public">
+                    <ion-icon name="lock-open"></ion-icon>
+                    <button onclick='markVisibility(this)'>Público</button>
+                    <ion-icon class="markedVisibility" name="checkmark" data-test="check"></ion-icon>
+                </li>
+                <li data-test="private">
+                    <ion-icon name="lock-closed"></ion-icon>
+                    <button onclick='markVisibility(this)'>Reservadamente</button>
+                </li>
+            </ul>
+        </div>
+    </aside>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

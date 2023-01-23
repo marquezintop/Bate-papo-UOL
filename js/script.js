@@ -1,6 +1,9 @@
 let username = null;
 let usernameAPI;
+let toUsername = 'Todos'
 let messageList = [];
+let participantsList = []
+let messageType = 'message'
 let typedMessage;
 const typedMessageEnter  = document.querySelector('.message-written');
 const typedUsernameEnter = document.querySelector('.login-name');
@@ -42,8 +45,10 @@ function sucessProcessName() {
     document.querySelector('.login-screen').classList.add('hidden');
     document.querySelector('.container').classList.remove('hidden');
     getMessagesAtServer();
+    participantsOnline();
     setInterval(getMessagesAtServer, 3000);
-    setInterval (userStatus, 5000);
+    setInterval(userStatus, 5000);
+    setInterval(participantsOnline, 10000)
 }
 
 function errorProcessName() {
@@ -73,7 +78,7 @@ function userIsOff() {
 
 function sendMessage() {
     typedMessage = document.querySelector('.message-written').value;
-    const messageWritten = {from: username, to: 'Todos', text: typedMessage, type: 'message'};
+    const messageWritten = {from: username, to: toUsername, text: typedMessage, type: messageType};
     const messageWrittenAPI = axios.post('https://mock-api.driven.com.br/api/v6/uol/messages', messageWritten);
     document.querySelector('.message-written').value = '';
     messageWrittenAPI.then(sendMessageSucess);
@@ -98,7 +103,7 @@ function sendMessageError() {
 }
 
 function loadingMessages() {
-    const messages = document.querySelector('ul');
+    const messages = document.querySelector('.container ul');
     messages.innerHTML = '';
     let template;
     for(let i=0; i<messageList.length; i++) {
@@ -135,6 +140,66 @@ function loadingMessages() {
 }
     
     messages.lastChild.scrollIntoView();
+}
+
+function participantsOnline() {
+    const promise = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants')
+    promise.then(participantsOnlineSucess)
+    promise.catch(participantsOnlineError)
+}
+
+function participantsOnlineSucess(answer) {
+    console.log(answer.data)
+    participantsList = answer.data;
+    loadingParticipants();
+}
+
+function participantsOnlineError() {
+    console.log('Deu ruim nos participantes')
+}
+
+function loadingParticipants() {
+    const participants = document.querySelector('aside ul');
+    participants.innerHTML = `<li data-test="all">
+    <ion-icon name="people"></ion-icon>
+    <button onclick='mark(this)'>Todos</button>
+</li>`
+    let template;
+    for (let i=0; i<participantsList.length; i++) {
+        template = `<li data-test="participant">
+        <ion-icon name="person-circle"></ion-icon>
+        <button onclick='mark(this)'>${participantsList[i].name}</button>
+    </li>`
+    participants.innerHTML = participants.innerHTML + template
+    }
+}
+
+function toggleAside() {
+    document.querySelector('.sidebar').classList.toggle('hidden');
+}
+
+function mark(buttonPressed) {
+    const oldMarked = document.querySelector('.marked');
+    if (oldMarked !== null) {
+        oldMarked.remove();
+    }
+    toUsername = buttonPressed.innerHTML
+    buttonPressed.innerHTML = buttonPressed.innerHTML + '<ion-icon class="marked" name="checkmark" data-test="check"></ion-icon>'
+}
+
+function markVisibility(buttonPressed) {
+    const oldMarked = document.querySelector('.markedVisibility');
+    if (oldMarked !== null) {
+        oldMarked.remove();
+    }
+    if (buttonPressed.innerHTML === 'Público') {
+        messageType = 'message'
+    } else if(toUsername === 'Todos'){
+        messageType = 'message'
+    } else {
+        messageType = 'private_message'
+    }
+    buttonPressed.innerHTML = buttonPressed.innerHTML + '<ion-icon class="markedVisibility" name="checkmark" data-test="check"></ion-icon>'
 }
 
 
