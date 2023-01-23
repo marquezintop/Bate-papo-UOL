@@ -4,6 +4,7 @@ let toUsername = 'Todos'
 let messageList = [];
 let participantsList = []
 let messageType = 'message'
+let messageTypeSend = 'publicamente'
 let typedMessage;
 const typedMessageEnter  = document.querySelector('.message-written');
 const typedUsernameEnter = document.querySelector('.login-name');
@@ -185,6 +186,7 @@ function mark(buttonPressed) {
     }
     toUsername = buttonPressed.innerHTML
     buttonPressed.innerHTML = buttonPressed.innerHTML + '<ion-icon class="marked" name="checkmark" data-test="check"></ion-icon>'
+    document.querySelector('p').innerHTML = `Enviando para ${toUsername} (${messageTypeSend})`
 }
 
 function markVisibility(buttonPressed) {
@@ -194,12 +196,16 @@ function markVisibility(buttonPressed) {
     }
     if (buttonPressed.innerHTML === 'Público') {
         messageType = 'message'
+        messageTypeSend = 'publicamente'
     } else if(toUsername === 'Todos'){
         messageType = 'message'
+        messageTypeSend = 'publicamente'
     } else {
         messageType = 'private_message'
+        messageTypeSend = 'reservadamente'
     }
     buttonPressed.innerHTML = buttonPressed.innerHTML + '<ion-icon class="markedVisibility" name="checkmark" data-test="check"></ion-icon>'
+    document.querySelector('p').innerHTML = `Enviando para ${toUsername} (${messageTypeSend})`
 }
 
 
