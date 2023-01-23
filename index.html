@@ -31,13 +31,16 @@
 
         </ul>
         <footer>
-            <input class="message-written" id="typed" data-test="input-message" type="text" placeholder="Escreva aqui...">
+            <div class="message-entry">
+                <input class="message-written" id="typed" data-test="input-message" type="text" placeholder="Escreva aqui...">
+                <p>Enviando para Todos (publicamente)</p> 
+            </div>
             <button id="btn" onclick="sendMessage()" data-test="send-message">
                 <ion-icon name="paper-plane-outline"></ion-icon>
             </button>
         </footer>
     </div>
-    <aside class="sidebar hidden">
+    <aside class="sidebar hidden" data-test="overlay">
         <button class="opaque" onclick="toggleAside()"></button>
         <div class="participants-list">
             <div class="users-text">Escolha um contato para enviar mensagem:</div>
